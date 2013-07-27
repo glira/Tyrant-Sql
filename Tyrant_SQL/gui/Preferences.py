@@ -60,14 +60,26 @@ class Ui_Preferences(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Preferences", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblPython.setText(QtGui.QApplication.translate("Form", "Python:", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblPythonSupp.setText(QtGui.QApplication.translate("Form", "Tyrant support Python >=2.5 and <2.8", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabPython), QtGui.QApplication.translate("Form", "Python", None, QtGui.QApplication.UnicodeUTF8))
-        self.gbxProxy.setTitle(QtGui.QApplication.translate("Form", "Web Proxy", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblPort.setText(QtGui.QApplication.translate("Form", "Port:", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblIP.setText(QtGui.QApplication.translate("Form", "IP:", None, QtGui.QApplication.UnicodeUTF8))
-        self.rbtnHTTP.setText(QtGui.QApplication.translate("Form", "HTTP Proxy", None, QtGui.QApplication.UnicodeUTF8))
-        self.rbtnSocks.setText(QtGui.QApplication.translate("Form", "Socks Proxy", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("Form", "Proxy", None, QtGui.QApplication.UnicodeUTF8))
-
+        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Preferences",
+             None, QtGui.QApplication.UnicodeUTF8))
+        self.lblPython.setText(QtGui.QApplication.translate("Form", "Python:",
+            None, QtGui.QApplication.UnicodeUTF8))
+        self.lblPythonSupp.setText(QtGui.QApplication.translate
+            ("Form", "Tyrant support Python >=2.5 and <2.8", None,
+            QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabPython),
+            QtGui.QApplication.translate("Form", "Python", None,
+            QtGui.QApplication.UnicodeUTF8))
+        self.gbxProxy.setTitle(QtGui.QApplication.translate
+            ("Form", "Web Proxy", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblPort.setText(QtGui.QApplication.translate
+            ("Form", "Port:", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblIP.setText(QtGui.QApplication.translate
+            ("Form", "IP:", None, QtGui.QApplication.UnicodeUTF8))
+        self.rbtnHTTP.setText(QtGui.QApplication.translate
+            ("Form", "HTTP Proxy", None, QtGui.QApplication.UnicodeUTF8))
+        self.rbtnSocks.setText(QtGui.QApplication.translate
+            ("Form", "Socks Proxy", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2),
+            QtGui.QApplication.translate("Form", "Proxy",
+            None, QtGui.QApplication.UnicodeUTF8))

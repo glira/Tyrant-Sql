@@ -8,7 +8,6 @@ from core.TestPython import TestPython
 from gui.Preferences import Ui_Preferences
 
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -85,7 +84,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         #to hide or show post data
-        QtCore.QObject.connect(self.cbxMethod, QtCore.SIGNAL("currentIndexChanged(int)"), self.ShowHidePostData)
+        QtCore.QObject.connect(self.cbxMethod, QtCore.SIGNAL
+                            ("currentIndexChanged(int)"), self.ShowHidePostData)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.actionPreferences.triggered.connect(self.OpenPreferences)
 
@@ -99,34 +99,51 @@ class Ui_MainWindow(object):
 
     #menu signals
 
-
-
     def OpenPreferences(self):
         self.Pre = Ui_Preferences()
         self.Dialog = QtGui.QDialog()
         self.Pre.setupUi(self.Dialog, self)
         self.Dialog.exec_()
 
-
-
-
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblTarget.setText(QtGui.QApplication.translate("MainWindow", "Target:", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnAnalyze.setText(QtGui.QApplication.translate("MainWindow", "Analyze", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblMethod.setText(QtGui.QApplication.translate("MainWindow", "Method:", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxMethod.setItemText(0, QtGui.QApplication.translate("MainWindow", "GET", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxMethod.setItemText(1, QtGui.QApplication.translate("MainWindow", "POST", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblPostData.setText(QtGui.QApplication.translate("MainWindow", "Post Data:", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAnalyze), QtGui.QApplication.translate("MainWindow", "Target", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRawData), QtGui.QApplication.translate("MainWindow", "Raw Data", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSql_Map_Hlelp.setText(QtGui.QApplication.translate("MainWindow", "Sql Map  Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOnline_Help.setText(QtGui.QApplication.translate("MainWindow", "Online Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionLicense.setText(QtGui.QApplication.translate("MainWindow", "License", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpan_database.setText(QtGui.QApplication.translate("MainWindow", "Open database", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSave_database.setText(QtGui.QApplication.translate("MainWindow", "Save database", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
-
+        MainWindow.setWindowTitle(QtGui.QApplication.translate
+            ("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblTarget.setText(QtGui.QApplication.translate
+            ("MainWindow", "Target:", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnAnalyze.setText(QtGui.QApplication.translate
+            ("MainWindow", "Analyze", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblMethod.setText(QtGui.QApplication.translate
+            ("MainWindow", "Method:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbxMethod.setItemText(0, QtGui.QApplication.translate
+            ("MainWindow", "GET", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbxMethod.setItemText(1, QtGui.QApplication.translate
+            ("MainWindow", "POST", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblPostData.setText(QtGui.QApplication.translate
+            ("MainWindow", "Post Data:", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAnalyze),
+             QtGui.QApplication.translate
+             ("MainWindow", "Target", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRawData),
+            QtGui.QApplication.translate("MainWindow", "Raw Data", None,
+            QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate
+            ("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuHelp.setTitle(QtGui.QApplication.translate
+            ("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSql_Map_Hlelp.setText(QtGui.QApplication.translate
+            ("MainWindow", "Sql Map  Help",
+            None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOnline_Help.setText(QtGui.QApplication.translate
+            ("MainWindow", "Online Help", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionLicense.setText(QtGui.QApplication.translate
+            ("MainWindow", "License", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAbout.setText(QtGui.QApplication.translate
+            ("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOpan_database.setText(QtGui.QApplication.translate
+            ("MainWindow", "Open database",
+            None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSave_database.setText(QtGui.QApplication.translate
+            ("MainWindow", "Save database",
+            None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setText(QtGui.QApplication.translate("MainWindow",
+            "Exit", None, QtGui.QApplication.UnicodeUTF8))

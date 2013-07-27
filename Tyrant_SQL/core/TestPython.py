@@ -62,5 +62,3 @@ class TestPython(object):
             self.a = False
             return
         self.a = True
-
-

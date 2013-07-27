@@ -19,4 +19,3 @@ class TyrantSettings(object):
         print('Saving preferences')
         self.Settings.setValue('Python/PythonPath', self.Pref.edtPython.text())
         self.Settings.sync()
-

@@ -4,6 +4,7 @@ import sys
 from PySide.QtGui import QApplication, QMainWindow
 from gui.Ui_MainWindow import Ui_MainWindow
 
+
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     def __init__(self):
