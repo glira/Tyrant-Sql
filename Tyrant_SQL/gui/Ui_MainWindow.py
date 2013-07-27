@@ -5,6 +5,7 @@ from PySide import QtCore
 from PySide import QtGui
 
 from core.TestPython import TestPython
+from gui.Preferences import Ui_Preferences
 
 
 
@@ -52,21 +53,18 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionSql_Map_Hlelp = QtGui.QAction(MainWindow)
-        self.actionSql_Map_Hlelp.setObjectName("actionSql_Map_Hlelp")
         self.actionOnline_Help = QtGui.QAction(MainWindow)
-        self.actionOnline_Help.setObjectName("actionOnline_Help")
         self.actionLicense = QtGui.QAction(MainWindow)
-        self.actionLicense.setObjectName("actionLicense")
         self.actionAbout = QtGui.QAction(MainWindow)
-        self.actionAbout.setObjectName("actionAbout")
         self.actionOpan_database = QtGui.QAction(MainWindow)
-        self.actionOpan_database.setObjectName("actionOpan_database")
         self.actionSave_database = QtGui.QAction(MainWindow)
-        self.actionSave_database.setObjectName("actionSave_database")
         self.actionExit = QtGui.QAction(MainWindow)
-        self.actionExit.setObjectName("actionExit")
+        self.actionPreferences = QtGui.QAction(MainWindow)
+        self.actionPreferences.setText('Preferences')
         self.menuFile.addAction(self.actionOpan_database)
         self.menuFile.addAction(self.actionSave_database)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionPreferences)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionSql_Map_Hlelp)
@@ -86,8 +84,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
+        #to hide or show post data
         QtCore.QObject.connect(self.cbxMethod, QtCore.SIGNAL("currentIndexChanged(int)"), self.ShowHidePostData)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.actionPreferences.triggered.connect(self.OpenPreferences)
 
     def ShowHidePostData(self, ID):
         if ID is 0:
@@ -96,6 +96,17 @@ class Ui_MainWindow(object):
         else:
             self.edtPostData.setVisible(True)
             self.lblPostData.setVisible(True)
+
+    #menu signals
+
+
+
+    def OpenPreferences(self):
+        self.Pre = Ui_Preferences()
+        self.Dialog = QtGui.QDialog()
+        self.Pre.setupUi(self.Dialog, self)
+        self.Dialog.exec_()
+
 
 
 

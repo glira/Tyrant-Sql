@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from PySide.QtCore import QProcess
+from PySide import QtCore
+from core.Resources import Resources
+
 
 class TestPython(object):
 
@@ -8,11 +11,19 @@ class TestPython(object):
         self.Test = QProcess()
         #a and b to test if i get a output or command error
         self.a = True
+        self.Settings = QtCore.QSettings('Tyrant.cfg',
+                                                    QtCore.QSettings.IniFormat)
 
     def TestVersion(self):
         print('Test python version')
         self.Test.readyReadStandardError.connect(self.getOutput)
-        self.Test.start('python', ['-V'])
+        #if i have a custom pythonpath, i'll use it here
+        Res = Resources()
+        Python = Res.getPref('Python')
+        #test if is a pythonpath, if not open a default
+        if len(Python) < 5:
+            Python = 'python'
+        self.Test.start(Python, ['-V'])
         self.Test.waitForStarted()
         self.Test.waitForFinished()
         self.Test.terminate()
@@ -23,14 +34,16 @@ class TestPython(object):
             return a
         else:
             #say to program that python is working
-            print('Print version found')
+            print('Python version found')
+            self.Settings.setValue('Python/PythonPath', str(Python))
+            self.Settings.sync()
             return True
-
 
     def TestVersion2(self):
         print('Testing python version 2')
         self.Test.readyReadStandardError.connect(self.getOutput)
-        self.Test.start('python2.7', ['-V'])
+        Python = 'python2.7'
+        self.Test.start(Python, ['-V'])
         self.Test.waitForStarted()
         self.Test.waitForFinished()
         self.Test.terminate()
@@ -38,8 +51,9 @@ class TestPython(object):
             #say thar python is not working
             return False
         else:
+            self.Settings.setValue('Python/PythonPath', str(Python))
+            self.Settings.sync()
             return True
-
 
     def getOutput(self):
         Out = str(self.Test.readAllStandardError())
@@ -48,3 +62,5 @@ class TestPython(object):
             self.a = False
             return
         self.a = True
+
+
