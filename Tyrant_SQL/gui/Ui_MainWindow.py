@@ -4,6 +4,9 @@
 from PySide import QtCore
 from PySide import QtGui
 
+from core.TestPython import TestPython
+
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -74,6 +77,12 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.Layout.addWidget(self.tabWidget)
+        Test = TestPython()
+        Working = Test.TestVersion()
+        if not Working:
+            Msg = QtGui.QMessageBox()
+            Msg.information(self, 'Python',
+                    'Tyrant failed to find Python >=2.5.* and <=2.7.*')
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -87,6 +96,7 @@ class Ui_MainWindow(object):
         else:
             self.edtPostData.setVisible(True)
             self.lblPostData.setVisible(True)
+
 
 
     def retranslateUi(self, MainWindow):
