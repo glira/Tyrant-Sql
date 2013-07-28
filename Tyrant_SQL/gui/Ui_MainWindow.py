@@ -4,8 +4,11 @@
 from PySide import QtCore
 from PySide import QtGui
 
+
 from core.TestPython import TestPython
 from gui.Preferences import Ui_Preferences
+from gui.InfoPanel import InfoPanel
+from gui.Raw_Data import Raw_Data
 
 
 class Ui_MainWindow(object):
@@ -14,6 +17,13 @@ class Ui_MainWindow(object):
         MainWindow.resize(618, 654)
         self.Frame = QtGui.QFrame()
         self.Layout = QtGui.QHBoxLayout()
+        self.gbxInfo = QtGui.QGroupBox()
+        self.gbxInfo.setTitle('Information')
+        self.Info = InfoPanel()
+        self.InfoLayout = QtGui.QHBoxLayout()
+        self.InfoLayout.addWidget(self.Info)
+        self.gbxInfo.setLayout(self.InfoLayout)
+        self.Wdg = QtGui.QVBoxLayout()
         self.Frame.setLayout(self.Layout)
         self.tabWidget = QtGui.QTabWidget()
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 621, 611))
@@ -39,6 +49,9 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tabAnalyze, "")
         self.tabRawData = QtGui.QWidget()
         self.tabWidget.addTab(self.tabRawData, "")
+        self.RawData = Raw_Data(self)
+        self.RDLayout = QtGui.QHBoxLayout(self.tabRawData)
+        self.RDLayout.addWidget(self.RawData)
         MainWindow.setCentralWidget(self.Frame)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 618, 27))
@@ -73,7 +86,11 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionAbout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.Layout.addWidget(self.tabWidget)
+        self.Wdg.addWidget(self.tabWidget)
+        self.Wdg.addWidget(self.gbxInfo)
+        self.Wdg.setStretchFactor(self.tabWidget, 10)
+        self.Wdg.setStretchFactor(self.gbxInfo, 5)
+        self.Layout.addLayout(self.Wdg)
         Test = TestPython()
         Working = Test.TestVersion()
         if not Working:
