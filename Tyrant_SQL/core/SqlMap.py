@@ -30,14 +30,13 @@ class SqlMap(object):
         self.Target = self.Wdg.edtTarget.text()
         argIdentify = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '--dbs',
             '--answers=skip test=N, include all tests=N' +
-            ', keep testing the=Y']
+            ', keep testing the=Y', '--batch']
         print argIdentify
         self.Proc.readyReadStandardOutput.connect(self.Output)
         self.Proc.start(self.Python, argIdentify,
                                     mode=QtCore.QIODevice.ReadWrite)
 
-
-
     def Output(self):
         Out = (str(self.Proc.readAllStandardOutput()))
-        self.Wdg.RawData.appendPlainText(Out)
+        if len(Out)>1:
+            self.Wdg.RawData.appendPlainText(Out)
