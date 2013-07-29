@@ -9,6 +9,7 @@ from core.TestPython import TestPython
 from gui.Preferences import Ui_Preferences
 from gui.InfoPanel import InfoPanel
 from gui.Raw_Data import Raw_Data
+from core.SqlMap import SqlMap
 
 
 class Ui_MainWindow(object):
@@ -105,6 +106,11 @@ class Ui_MainWindow(object):
                             ("currentIndexChanged(int)"), self.ShowHidePostData)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.actionPreferences.triggered.connect(self.OpenPreferences)
+        self.SQLMap = SqlMap(self)
+        self.btnAnalyze.clicked.connect(self.Analyze)
+
+    def Analyze(self):
+        self.SQLMap.IdentifyDB()
 
     def ShowHidePostData(self, ID):
         if ID is 0:
