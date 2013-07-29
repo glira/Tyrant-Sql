@@ -10,6 +10,7 @@ from gui.Preferences import Ui_Preferences
 from gui.InfoPanel import InfoPanel
 from gui.Raw_Data import Raw_Data
 from core.SqlMap import SqlMap
+from gui.tabData import tabData
 
 
 class Ui_MainWindow(object):
@@ -50,6 +51,8 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tabAnalyze, "")
         self.tabRawData = QtGui.QWidget()
         self.tabWidget.addTab(self.tabRawData, "")
+        self.tabData = tabData()
+        self.tabWidget.addTab(self.tabData, 'Data')
         self.RawData = Raw_Data(self)
         self.RDLayout = QtGui.QHBoxLayout(self.tabRawData)
         self.RDLayout.addWidget(self.RawData)
