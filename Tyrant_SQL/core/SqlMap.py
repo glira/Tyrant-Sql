@@ -32,7 +32,6 @@ class SqlMap(object):
         self.Wdg.Info.setPlainText('')
         self.Wdg.RawData.setPlainText('')
         self.Wdg.tabData.Clear()
-        self.RawAnalyzer.Clear()
         argIdentify = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '--dbs',
             '--answers=skip test=N, include all tests=N' +
             ', keep testing the=Y', '--batch']
@@ -50,15 +49,13 @@ class SqlMap(object):
                                     mode=QtCore.QIODevice.ReadWrite)
 
     #read the output and find the DBMS version and the databases
-    def getDBInfo(self, a=None):
-        print('wsfsdfsdf')
-        print a
+    def getDBInfo(self, Exit=None):
         self.Proc.finished.disconnect()
-        if (a is None):
+        if (Exit is None):
             Info = QtGui.QMessageBox()
             Info.information(self.Wdg, 'DB Analyzer', 'The databases was not \n'
              + 'analyzed. Please, restart the analyze.')
-        elif a == 0:
+        elif Exit == 0:
             self.RawAnalyzer.getDBInfo()
 
     def Output(self):
@@ -66,5 +63,20 @@ class SqlMap(object):
         if len(Out) > 1:
             self.Wdg.RawData.appendPlainText(Out)
 
-    def getTables(self):
-        pass
+    def getTables(self, DB):
+        self.Wdg.Info.appendPlainText('[INFO]Getting %s tables.Please, wait'
+             % DB)
+        self.DB = DB
+        argTables = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '-D', DB,
+            '--tables']
+        self.Run(argTables)
+        self.Proc.finished.connect(self.AnalyzeTables)
+
+    def AnalyzeTables(self, Exit=None):
+        self.Proc.finished.disconnect()
+        if (Exit is None) | (Exit != 0):
+            self.Wdg.Info.appendPlainText('[ERROR] The scanning stopped' +
+                'incorretly. Restart the analyze')
+        elif Exit == 0:
+
+            self.RawAnalyzer.AnalyzeTables(self.DB)

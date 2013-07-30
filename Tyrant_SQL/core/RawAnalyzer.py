@@ -10,14 +10,9 @@ class RawAnalyzer(object):
         self.DBMS = ''
         self.QtdDBs = 0
         self.DBNames = []
+        self.QtdTBs = 0
         self.Info = self.Wdg.Info
         self.TabData = self.Wdg.tabData
-
-    #set the default values to this class
-    def Clear(self):
-        self.DBMS = ''
-        self.QtdDBs = 0
-        self.DBNames = []
 
     def getDBInfo(self):
         self.Info.appendPlainText('[INFO]Getting Database information...')
@@ -49,6 +44,8 @@ class RawAnalyzer(object):
             self.Info.appendPlainText(Out)
         for D in self.DBNames:
             self.TabData.addDB(D)
+        self.Info.appendPlainText('[INFO]Databases scanning complete!')
+        self.Wdg.tabWidget.setCurrentIndex(2)
 
     def getDBNames(self):
         DBNames = []
@@ -62,7 +59,6 @@ class RawAnalyzer(object):
             Text = Text.split()
             Text = Text[-1]
             DBNames.append(str(Text))
-        print('DNAMEASASDASD %s' % DBNames)
         return DBNames
 
     def getDatabases(self):
@@ -93,3 +89,34 @@ class RawAnalyzer(object):
             return(Text[-1])
         else:
             return False
+
+    def AnalyzeTables(self, DB):
+        self.QtdTBs = self.getQtdTable(DB)
+        if self.QtdTBs is False:
+            self.Info.appendPlainText('''[ERROR]Failed to find database tables.
+                [ERROR]See the raw data for more information.
+                [ERROR]Please restart the analyze.''')
+        else:
+            self.Info.appendPlainText('[INFO]%s tables was found on database %s'
+                 % (self.QtdTBs, DB))
+
+    def getQtdTable(self, DB):
+        Edt = self.Wdg.RawData
+        Cursor = QtGui.QTextCursor()
+        a = Edt.find('Database: ' + DB)
+        if a is False:
+            return False
+        a = Edt.find('[')
+        if a is False:
+            return False
+        Edt.moveCursor(Cursor.StartOfLine)
+        Edt.moveCursor(Cursor.EndOfLine, Cursor.KeepAnchor)
+        Text = Edt.textCursor().selectedText()
+        Text = Text.split()
+        Text = Text[0]
+        Text = Text[1:]
+        if len(Text) < 2:
+            return False
+        else:
+            return(int(Text))
+

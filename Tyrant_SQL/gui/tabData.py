@@ -27,7 +27,7 @@ class tabData(QtGui.QWidget):
     def getTables(self, DB=None):
         self.SqlMap = self.Wdg.SQLMap
         TBName = DB.text(0)
-        print TBName
+        self.SqlMap.getTables(TBName)
 
     def addTable(self, DB, Text):
         self.DBExplorer.addTB(DB, Text)
