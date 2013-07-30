@@ -1,6 +1,5 @@
 # *-* coding: utf-8 *-*
 
-from PySide import QtCore
 from PySide import QtGui
 
 
@@ -12,10 +11,16 @@ class RawAnalyzer(object):
         self.QtdDBs = 0
         self.DBNames = []
         self.Info = self.Wdg.Info
+        self.TabData = self.Wdg.tabData
+
+    #set the default values to this class
+    def Clear(self):
+        self.DBMS = ''
+        self.QtdDBs = 0
+        self.DBNames = []
 
     def getDBInfo(self):
-        print('[INFO]Getting DB info')
-        self.Info.appendPlainText('Getting Database information...')
+        self.Info.appendPlainText('[INFO]Getting Database information...')
         self.DBMS = self.getDBMS()
         if self.DBMS is False:
             self.Info.appendPlainText('''[ERROR]Failed to find Database
@@ -38,10 +43,12 @@ class RawAnalyzer(object):
                 % (self.QtdDBs))
         self.DBNames = self.getDBNames()
         for i in range(self.QtdDBs):
-            Out = '[INFO]\t Table '
+            Out = '[INFO]\t Database '
             Out += str(i) + ': '
             Out += self.DBNames[i]
             self.Info.appendPlainText(Out)
+        for D in self.DBNames:
+            self.TabData.addDB(D)
 
     def getDBNames(self):
         DBNames = []
@@ -55,6 +62,7 @@ class RawAnalyzer(object):
             Text = Text.split()
             Text = Text[-1]
             DBNames.append(str(Text))
+        print('DNAMEASASDASD %s' % DBNames)
         return DBNames
 
     def getDatabases(self):
@@ -70,7 +78,6 @@ class RawAnalyzer(object):
         QtdDBs = Text[1]
         QtdDBs = int(QtdDBs)
         return (QtdDBs)
-
 
     def getDBMS(self):
         Edt = self.Wdg.RawData

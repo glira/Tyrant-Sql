@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tabAnalyze, "")
         self.tabRawData = QtGui.QWidget()
         self.tabWidget.addTab(self.tabRawData, "")
-        self.tabData = tabData()
+        self.tabData = tabData(self)
         self.tabWidget.addTab(self.tabData, 'Data')
         self.RawData = Raw_Data(self)
         self.RDLayout = QtGui.QHBoxLayout(self.tabRawData)

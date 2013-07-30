@@ -6,8 +6,9 @@ from PySide import QtCore
 
 class tabData(QtGui.QWidget):
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super(tabData, self).__init__()
+        self.Wdg = parent
         self.Layout = QtGui.QHBoxLayout()
         self.Split = QtGui.QSplitter(QtCore.Qt.Horizontal)
         self.DBExplorer = TreeView()
@@ -20,11 +21,22 @@ class tabData(QtGui.QWidget):
         self.Layout.addWidget(self.Split)
         self.setLayout(self.Layout)
 
+        #signals
+        self.DBExplorer.itemClicked.connect(self.getTables)
+
+    def getTables(self, DB=None):
+        self.SqlMap = self.Wdg.SQLMap
+        TBName = DB.text(0)
+        print TBName
+
+    def addTable(self, DB, Text):
+        self.DBExplorer.addTB(DB, Text)
+
     def addDB(self, Text):
         self.DBExplorer.addDB(Text)
 
-    def addTable(self, DB, Text):
-        self.DBExplorer.addTable(DB, Text)
+    def Clear(self):
+        self.DBExplorer.clear()
 
 
 class TreeView(QtGui.QTreeWidget):
@@ -38,7 +50,6 @@ class TreeView(QtGui.QTreeWidget):
         NewDB = QtGui.QTreeWidgetItem()
         NewDB.setText(0, Text)
         self.insertTopLevelItem(ID, NewDB)
-        print('Added table ' + str(Text))
 
     def addTable(self, DB, Text):
         CurrentDB = self.topLevelItem(DB)

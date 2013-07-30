@@ -1,7 +1,7 @@
 # *-* coding: utf-8 *-*
 
 from PySide import QtGui
-from PySide import QtCore
+
 
 class Raw_Data(QtGui.QPlainTextEdit):
 

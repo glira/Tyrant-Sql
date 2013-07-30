@@ -29,10 +29,13 @@ class SqlMap(object):
 
     def IdentifyDB(self):
         self.Target = self.Wdg.edtTarget.text()
+        self.Wdg.Info.setPlainText('')
+        self.Wdg.RawData.setPlainText('')
+        self.Wdg.tabData.Clear()
+        self.RawAnalyzer.Clear()
         argIdentify = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '--dbs',
             '--answers=skip test=N, include all tests=N' +
             ', keep testing the=Y', '--batch']
-        self.getDBInfo()
         self.Run(argIdentify)
         self.Proc.finished.connect(self.getDBInfo)
 
@@ -42,14 +45,16 @@ class SqlMap(object):
 
     #run the sqlmap
     def _Run(self, Arg):
-
         self.Proc.readyReadStandardOutput.connect(self.Output)
         self.Proc.start(self.Python, Arg,
                                     mode=QtCore.QIODevice.ReadWrite)
 
     #read the output and find the DBMS version and the databases
     def getDBInfo(self, a=None):
-        if (a is not None) & (a != 0):
+        print('wsfsdfsdf')
+        print a
+        self.Proc.finished.disconnect()
+        if (a is None):
             Info = QtGui.QMessageBox()
             Info.information(self.Wdg, 'DB Analyzer', 'The databases was not \n'
              + 'analyzed. Please, restart the analyze.')
@@ -60,3 +65,6 @@ class SqlMap(object):
         Out = (str(self.Proc.readAllStandardOutput()))
         if len(Out) > 1:
             self.Wdg.RawData.appendPlainText(Out)
+
+    def getTables(self):
+        pass
