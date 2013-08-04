@@ -27,10 +27,19 @@ class tabData(QtGui.QWidget):
     def getTables(self, DB=None):
         self.SqlMap = self.Wdg.SQLMap
         TBName = DB.text(0)
-        self.SqlMap.getTables(TBName)
+        if DB.childCount() == 0:
+            self.SqlMap.getTables(TBName, DB)
+        else:
+            try:
+                if not self.DBExplorer.isItemExpanded(DB):
+                    self.DBExplorer.expandItem(DB)
+                else:
+                    self.DBExplorer.collapseItem(DB)
+            except:
+                pass
 
     def addTable(self, DB, Text):
-        self.DBExplorer.addTB(DB, Text)
+        self.DBExplorer.addTable(DB, Text)
 
     def addDB(self, Text):
         self.DBExplorer.addDB(Text)
@@ -52,8 +61,7 @@ class TreeView(QtGui.QTreeWidget):
         self.insertTopLevelItem(ID, NewDB)
 
     def addTable(self, DB, Text):
-        CurrentDB = self.topLevelItem(DB)
-        NewTB = QtGui.QTreeWidgetItem(CurrentDB)
+        NewTB = QtGui.QTreeWidgetItem(DB)
         NewTB.setText(0, Text)
 
 

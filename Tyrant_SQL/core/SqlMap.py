@@ -20,6 +20,7 @@ class SqlMap(object):
         self.Python = self.Resources.getPref('Python')
         self.Proc = QtCore.QProcess()
         self.Target = ''
+        self.CurrentDB = None
 
     def SqlMapExist(self):
         if not self.SQLFile.exists():
@@ -63,7 +64,8 @@ class SqlMap(object):
         if len(Out) > 1:
             self.Wdg.RawData.appendPlainText(Out)
 
-    def getTables(self, DB):
+    def getTables(self, DB, CurrentDB):
+        self.CurrentDB = CurrentDB
         self.Wdg.Info.appendPlainText('[INFO]Getting %s tables.Please, wait'
              % DB)
         self.DB = DB
@@ -78,5 +80,4 @@ class SqlMap(object):
             self.Wdg.Info.appendPlainText('[ERROR] The scanning stopped' +
                 'incorretly. Restart the analyze')
         elif Exit == 0:
-
-            self.RawAnalyzer.AnalyzeTables(self.DB)
+            self.RawAnalyzer.AnalyzeTables(self.DB, self.CurrentDB)
