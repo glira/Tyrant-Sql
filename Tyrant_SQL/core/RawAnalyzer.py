@@ -64,7 +64,7 @@ class RawAnalyzer(object):
                 c = 0
         Table.setHorizontalHeaderLabels(Header)
         Header = []
-        for i in range(Table.columnCount()):
+        for i in range(Table.rowCount()):
             Header.append(' ')
         Table.setVerticalHeaderLabels(Header)
         self.Info.appendPlainText('[INFO]Table completely loaded.')
