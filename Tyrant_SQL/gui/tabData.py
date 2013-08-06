@@ -12,12 +12,7 @@ class tabData(QtGui.QWidget):
         self.Layout = QtGui.QHBoxLayout()
         self.Split = QtGui.QSplitter(QtCore.Qt.Horizontal)
         self.DBExplorer = TreeView()
-        self.EdtTest = QtGui.QTextEdit()
-        self.EdtTest.setPlainText('Tables will be here soon')
         self.Split.insertWidget(0, self.DBExplorer)
-        self.Split.insertWidget(1, self.EdtTest)
-        self.Split.setStretchFactor(0, 8)
-        self.Split.setStretchFactor(1, 20)
         self.Layout.addWidget(self.Split)
         self.setLayout(self.Layout)
 
@@ -27,16 +22,19 @@ class tabData(QtGui.QWidget):
     def getTables(self, DB=None):
         self.SqlMap = self.Wdg.SQLMap
         TBName = DB.text(0)
-        if DB.childCount() == 0:
-            self.SqlMap.getTables(TBName, DB)
+        if DB.parent() is None:
+            if DB.childCount() == 0:
+                self.SqlMap.getTables(TBName, DB)
+            else:
+                try:
+                    if not self.DBExplorer.isItemExpanded(DB):
+                        self.DBExplorer.expandItem(DB)
+                    else:
+                        self.DBExplorer.collapseItem(DB)
+                except:
+                    pass
         else:
-            try:
-                if not self.DBExplorer.isItemExpanded(DB):
-                    self.DBExplorer.expandItem(DB)
-                else:
-                    self.DBExplorer.collapseItem(DB)
-            except:
-                pass
+            self.SqlMap.getTableContent(DB)
 
     def addTable(self, DB, Text):
         self.DBExplorer.addTable(DB, Text)
@@ -63,8 +61,3 @@ class TreeView(QtGui.QTreeWidget):
     def addTable(self, DB, Text):
         NewTB = QtGui.QTreeWidgetItem(DB)
         NewTB.setText(0, Text)
-
-
-
-
-

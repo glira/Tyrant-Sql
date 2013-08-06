@@ -1,6 +1,8 @@
-# *-* coding: utf-8 *-*
+# -*- coding: utf-8 -*-
 
 from PySide import QtGui
+from PySide import QtCore
+import csv
 
 
 class RawAnalyzer(object):
@@ -15,6 +17,57 @@ class RawAnalyzer(object):
         self.Info = self.Wdg.Info
         self.TabData = self.Wdg.tabData
         self.CurrentDB = None
+        self.TBName = ''
+
+    def getTBContent(self, TBName):
+        self.TBName = TBName
+        self.getTBEntries()
+
+    def getTBEntries(self):
+        Edt = self.Wdg.RawData
+        Cursor = QtGui.QTextCursor()
+        Edt.find('dumped to CSV file')
+        Edt.moveCursor(Cursor.Right)
+        Edt.moveCursor(Cursor.EndOfLine, Cursor.KeepAnchor)
+        Text = Edt.textCursor().selectedText()
+        Text = Text.split('Tyrant_SQL')
+        Text = Text[-1]
+        Text = Text[1:-1]
+        self.DrawTable(Text)
+
+    def DrawTable(self, File):
+        try:
+            Wdg = self.Wdg.tabData.Split.widget(1)
+            Wdg.hide()
+            Wdg.destroy()
+        except:
+            print('Error')
+        Table = QtGui.QTableWidget()
+        self.Wdg.tabData.Split.insertWidget(1, Table)
+        self.Wdg.tabData.Split.setStretchFactor(0, 8)
+        self.Wdg.tabData.Split.setStretchFactor(1, 20)
+        with open(File, 'rb') as f:
+            reader = csv.reader(f)
+            r = -1
+            c = 0
+            for row in reader:
+                Table.insertRow(Table.rowCount())
+                for column in row:
+                    if Table.rowCount() == 1:
+                        Table.insertColumn(Table.columnCount())
+                        Header = row
+                    else:
+                        Item = QtGui.QTableWidgetItem(column)
+                        Table.setItem(r, c, Item)
+                    c += 1
+                r += 1
+                c = 0
+        Table.setHorizontalHeaderLabels(Header)
+        Header = []
+        for i in range(Table.columnCount()):
+            Header.append(' ')
+        Table.setVerticalHeaderLabels(Header)
+        self.Info.appendPlainText('[INFO]Table completely loaded.')
 
     def getDBInfo(self):
         self.Info.appendPlainText('[INFO]Getting Database information...')
@@ -155,4 +208,3 @@ class RawAnalyzer(object):
             return False
         else:
             return(int(Text))
-
