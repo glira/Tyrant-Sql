@@ -1,0 +1,9 @@
+[Python]
+PythonPath=python2.7
+
+[SQLMap]
+IPProxy=None
+PortProxy=None
+UseProxy=false
+UseHTTP=false
+UseTor=true

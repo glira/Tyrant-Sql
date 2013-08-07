@@ -5,6 +5,7 @@ from core.Settings import TyrantSettings
 
 class Ui_Preferences(object):
     def setupUi(self, Form, Wdg=None):
+        self.Form = Form
         Form.resize(450, 550)
         Form.setMaximumSize(450, 550)
         Form.setMinimumSize(450, 550)
@@ -40,24 +41,47 @@ class Ui_Preferences(object):
         self.lblPort.setGeometry(QtCore.QRect(10, 140, 64, 21))
         self.lblIP = QtGui.QLabel(self.gbxProxy)
         self.lblIP.setGeometry(QtCore.QRect(10, 100, 81, 21))
+        self.rbtnProxy = QtGui.QRadioButton(self.gbxProxy)
+        self.rbtnProxy.setGeometry(QtCore.QRect(10, 30, 200, 26))
+        self.rbtnProxy.setText("Don't use proxy")
         self.rbtnHTTP = QtGui.QRadioButton(self.gbxProxy)
-        self.rbtnHTTP.setGeometry(QtCore.QRect(10, 40, 109, 26))
+        self.rbtnHTTP.setGeometry(QtCore.QRect(10, 60, 109, 26))
         self.rbtnHTTP.setChecked(True)
         self.rbtnHTTP.setObjectName("radioButton")
         self.rbtnSocks = QtGui.QRadioButton(self.gbxProxy)
-        self.rbtnSocks.setGeometry(QtCore.QRect(150, 40, 109, 26))
+        self.rbtnSocks.setGeometry(QtCore.QRect(150, 60, 109, 26))
         self.rbtnSocks.setObjectName("radioButton_2")
         self.tabWidget.addTab(self.tab_2, "")
         self.Layout.addWidget(self.tabWidget)
         Form.setLayout(self.Layout)
         self.Layout.addLayout(self.HLay)
         self.Settings = TyrantSettings(self)
-        self.btnSave.clicked.connect(self.Settings.Save_Prefs)
+        self.btnSave.clicked.connect(self.Save)
         self.btnCancel.clicked.connect(Form.reject)
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
         self.Settings.Populate_Prefs()
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.rbtnProxy.toggled.connect(self.ProxyInfo)
+        self.rbtnHTTP.toggled.connect(self.ProxyInfo)
+        self.rbtnSocks.toggled.connect(self.ProxyInfo)
+
+    def Save(self):
+        self.Settings.Save_Prefs()
+        self.Form.reject()
+
+    def ProxyInfo(self):
+        if self.rbtnProxy.isChecked():
+            self.lblIP.hide()
+            self.lblPort.hide()
+            self.edtIpProxy.hide()
+            self.edtPortProxy.hide()
+        else:
+            self.lblIP.show()
+            self.lblPort.show()
+            self.edtIpProxy.show()
+            self.edtPortProxy.show()
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Preferences",

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui
-from PySide import QtCore
 import csv
 
 
