@@ -37,6 +37,9 @@ class Ui_Preferences(object):
         self.edtIpProxy.setGeometry(QtCore.QRect(50, 90, 231, 33))
         self.edtPortProxy = QtGui.QLineEdit(self.gbxProxy)
         self.edtPortProxy.setGeometry(QtCore.QRect(50, 130, 101, 33))
+        self.cbxTorType = QtGui.QComboBox(self.gbxProxy)
+        self.cbxTorType.setGeometry(QtCore.QRect(160, 130, 100, 33))
+        self.cbxTorType.addItems(['HTTP', 'SOCKS4', 'SOCKS5'])
         self.lblPort = QtGui.QLabel(self.gbxProxy)
         self.lblPort.setGeometry(QtCore.QRect(10, 140, 64, 21))
         self.lblIP = QtGui.QLabel(self.gbxProxy)
@@ -77,11 +80,18 @@ class Ui_Preferences(object):
             self.lblPort.hide()
             self.edtIpProxy.hide()
             self.edtPortProxy.hide()
+            self.cbxTorType.hide()
         else:
             self.lblIP.show()
             self.lblPort.show()
             self.edtIpProxy.show()
             self.edtPortProxy.show()
+            self.cbxTorType.hide()
+            self.edtIpProxy.setEnabled(True)
+        if self.rbtnSocks.isChecked():
+            self.edtIpProxy.setText('127.0.0.1')
+            self.edtIpProxy.setEnabled(False)
+            self.cbxTorType.show()
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Preferences",
@@ -103,7 +113,7 @@ class Ui_Preferences(object):
         self.rbtnHTTP.setText(QtGui.QApplication.translate
             ("Form", "HTTP Proxy", None, QtGui.QApplication.UnicodeUTF8))
         self.rbtnSocks.setText(QtGui.QApplication.translate
-            ("Form", "Socks Proxy", None, QtGui.QApplication.UnicodeUTF8))
+            ("Form", "Tor Proxy", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2),
             QtGui.QApplication.translate("Form", "Proxy",
             None, QtGui.QApplication.UnicodeUTF8))

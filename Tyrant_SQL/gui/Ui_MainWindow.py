@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import webbrowser
 
 from PySide import QtCore
 from PySide import QtGui
@@ -54,14 +55,17 @@ class Ui_MainWindow(object):
         self.tabData = tabData(self)
         self.tabWidget.addTab(self.tabData, 'Data')
         self.RawData = Raw_Data(self)
+        self.RawView = QtGui.QPlainTextEdit()
+        self.RawView.setReadOnly(True)
         self.RDLayout = QtGui.QHBoxLayout(self.tabRawData)
         self.RDLayout.addWidget(self.RawData)
+        self.RDLayout.addWidget(self.RawView)
         MainWindow.setCentralWidget(self.Frame)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 618, 27))
         self.menubar.setObjectName("menubar")
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName("menuFile")
+        self.menuTyrant = QtGui.QMenu(self.menubar)
+        self.menuTyrant.setObjectName("menuFile")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
@@ -72,29 +76,26 @@ class Ui_MainWindow(object):
         self.actionOnline_Help = QtGui.QAction(MainWindow)
         self.actionLicense = QtGui.QAction(MainWindow)
         self.actionAbout = QtGui.QAction(MainWindow)
-        self.actionOpan_database = QtGui.QAction(MainWindow)
-        self.actionSave_database = QtGui.QAction(MainWindow)
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionPreferences = QtGui.QAction(MainWindow)
         self.actionPreferences.setText('Preferences')
-        self.menuFile.addAction(self.actionOpan_database)
-        self.menuFile.addAction(self.actionSave_database)
-        self.menuFile.addSeparator()
-        self.menuFile.addAction(self.actionPreferences)
-        self.menuFile.addSeparator()
-        self.menuFile.addAction(self.actionExit)
+        self.menuTyrant.addSeparator()
+        self.menuTyrant.addAction(self.actionPreferences)
+        self.menuTyrant.addSeparator()
+        self.menuTyrant.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionSql_Map_Hlelp)
         self.menuHelp.addAction(self.actionOnline_Help)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionLicense)
         self.menuHelp.addAction(self.actionAbout)
-        self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuTyrant.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.Wdg.addWidget(self.tabWidget)
         self.Wdg.addWidget(self.gbxInfo)
         self.Wdg.setStretchFactor(self.tabWidget, 10)
         self.Wdg.setStretchFactor(self.gbxInfo, 5)
         self.Layout.addLayout(self.Wdg)
+        self.RawData.hide()
         Test = TestPython()
         Working = Test.TestVersion()
         if not Working:
@@ -111,6 +112,27 @@ class Ui_MainWindow(object):
         self.actionPreferences.triggered.connect(self.OpenPreferences)
         self.SQLMap = SqlMap(self)
         self.btnAnalyze.clicked.connect(self.Analyze)
+        self.actionSql_Map_Hlelp.triggered.connect(self.SqlMapHelp)
+        self.actionAbout.triggered.connect(self.About)
+        self.actionLicense.triggered.connect(self.License)
+        self.actionOnline_Help.triggered.connect(self.TyrantHelp)
+        self.actionExit.triggered.connect(self.close)
+
+    def SqlMapHelp(self):
+        Web = webbrowser.get()
+        Web.open('http://www.sqlmap.org/')
+
+    def TyrantHelp(self):
+        Web = webbrowser.get()
+        Web.open('https://github.com/aron-bordin/Tyrant-SQL/wiki')
+
+    def License(self):
+        Web = webbrowser.get()
+        Web.open('http://www.gnu.org/licenses/gpl-3.0.txt')
+
+    def About(self):
+        Web = webbrowser.get()
+        Web.open('https://github.com/aron-bordin/Tyrant-SQL/')
 
     def Analyze(self):
         self.SQLMap.IdentifyDB()
@@ -123,8 +145,6 @@ class Ui_MainWindow(object):
         else:
             self.edtPostData.setVisible(True)
             self.lblPostData.setVisible(True)
-
-    #menu signals
 
     def OpenPreferences(self):
         self.Pre = Ui_Preferences()
@@ -153,8 +173,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRawData),
             QtGui.QApplication.translate("MainWindow", "Raw Data", None,
             QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate
-            ("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuTyrant.setTitle(QtGui.QApplication.translate
+            ("MainWindow", "Tyrant", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate
             ("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSql_Map_Hlelp.setText(QtGui.QApplication.translate
@@ -166,11 +186,5 @@ class Ui_MainWindow(object):
             ("MainWindow", "License", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate
             ("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpan_database.setText(QtGui.QApplication.translate
-            ("MainWindow", "Open database",
-            None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSave_database.setText(QtGui.QApplication.translate
-            ("MainWindow", "Save database",
-            None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow",
             "Exit", None, QtGui.QApplication.UnicodeUTF8))

@@ -24,6 +24,8 @@ class TyrantSettings(object):
                                                 ('SQLMap/UseHTTP')))
         self.Pref.rbtnSocks.setChecked(self.useBool(self.Settings.value
                                                 ('SQLMap/UseTor')))
+        self.Pref.cbxTorType.setCurrentIndex(int(self.Settings.value
+                                                ('SQLMap/TorTypeIndex', 0)))
         self.ProxyHideShow()
 
     def ProxyHideShow(self):
@@ -32,11 +34,18 @@ class TyrantSettings(object):
             self.Pref.lblPort.hide()
             self.Pref.edtIpProxy.hide()
             self.Pref.edtPortProxy.hide()
+            self.Pref.cbxTorType.hide()
         else:
             self.Pref.lblIP.show()
             self.Pref.lblPort.show()
             self.Pref.edtIpProxy.show()
             self.Pref.edtPortProxy.show()
+            self.Pref.cbxTorType.hide()
+            self.Pref.edtIpProxy.setEnabled(True)
+        if self.Pref.rbtnSocks.isChecked():
+            self.Pref.cbxTorType.show()
+            self.Pref.edtIpProxy.setText('127.0.0.1')
+            self.Pref.edtIpProxy.setEnabled(False)
 
     def useBool(self, Text):
         if Text == 'True':
@@ -56,4 +65,8 @@ class TyrantSettings(object):
                                         str(self.Pref.rbtnHTTP.isChecked()))
         self.Settings.setValue('SQLMap/UseTor',
                                         str(self.Pref.rbtnSocks.isChecked()))
+        self.Settings.setValue('SQLMap/TorTypeIndex',
+                                    str(self.Pref.cbxTorType.currentIndex()))
+        self.Settings.setValue('SQLMap/TorType',
+                                        str(self.Pref.cbxTorType.currentText()))
         self.Settings.sync()

@@ -16,8 +16,8 @@ class SqlMap(object):
         self.Wdg = parent
         self.RawAnalyzer = RawAnalyzer(self.Wdg)
         self.SqlMapExist()
-        self.Resources = Resources()
-        self.Python = self.Resources.getPref('Python')
+        self.Res = Resources()
+        self.Python = self.Res.getPref('Python')
         self.Proc = QtCore.QProcess()
         self.Target = ''
         self.CurrentDB = None
@@ -45,7 +45,7 @@ class SqlMap(object):
         argIdentify = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '--dbs',
             '--answers=skip test=N, include all tests=N' +
             ', keep testing the=Y', '--batch']
-        if self.Wdg.cbxMethod.currentIndex:
+        if self.Wdg.cbxMethod.currentIndex():
             Data = self.Wdg.edtPostData.text()
             if len(Data) == 0:
                 self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
@@ -53,8 +53,26 @@ class SqlMap(object):
                 return
             else:
                 argIdentify.append('--data=' + Data)
+        #check if is using proxy
+        argIdentify = self.Proxy(argIdentify)
         self.Run(argIdentify)
         self.Proc.finished.connect(self.getDBInfo)
+
+    def Proxy(self, Arg):
+        self.Resources = Resources()
+        if self.Resources.getPref('UseHTTP'):
+            IP = self.Resources.getPref('IP')
+            Port = self.Resources.getPref('PortProxy')
+            HOST = IP + ':' + Port
+            Arg.append('--proxy=' + HOST)
+        elif self.Resources.getPref('UseTor'):
+            Port = self.Resources.getPref('PortProxy')
+            Type = self.Resources.getPref('TorType')
+            Arg.append('--tor')
+            Arg.append('--tor-port=' + Port)
+            Arg.append('--tor-type=' + Type)
+            Arg.append('--check-tor')
+        return Arg
 
     def Run(self, Arg):
         self.Th = Thread(self._Run(Arg))
@@ -70,11 +88,13 @@ class SqlMap(object):
     def getDBInfo(self, Exit=None):
         self.isRunning = False
         self.Proc.finished.disconnect()
-        if (Exit is None):
+        if (Exit != 0):
             Info = QtGui.QMessageBox()
+            self.Wdg.Info.appendPlainText('[ERROR]Failed to start scanning.' +
+                'See the raw data for more information')
             Info.information(self.Wdg, 'DB Analyzer', 'The databases was not \n'
              + 'analyzed. Please, restart the analyze.')
-        elif Exit == 0:
+        else:
             self.RawAnalyzer.getDBInfo()
 
     def Output(self):
@@ -95,7 +115,7 @@ class SqlMap(object):
         self.DB = DB
         argTables = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '-D', DB,
             '--tables', '--answers=do you want to use common table existence=N']
-        if self.Wdg.cbxMethod.currentIndex:
+        if self.Wdg.cbxMethod.currentIndex():
             Data = self.Wdg.edtPostData.text()
             if len(Data) == 0:
                 self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
@@ -103,6 +123,8 @@ class SqlMap(object):
                 return
             else:
                 argTables.append('--data=' + Data)
+        #check if is using proxy
+        argTables = self.Proxy(argTables)
         self.Run(argTables)
         self.Proc.finished.connect(self.AnalyzeTables)
 
@@ -126,9 +148,10 @@ class SqlMap(object):
             self.isRunning = True
         self.Wdg.Info.appendPlainText('[INFO]Getting table content, wait')
         argTBContent = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '-D', DB,
-            '-T', self.TBName, '--dump', '--answers=hashes to a temporary file=N' +
+            '-T', self.TBName, '--dump',
+            '--answers=hashes to a temporary file=N' +
             ',dictionary-based attack=N']
-        if self.Wdg.cbxMethod.currentIndex:
+        if self.Wdg.cbxMethod.currentIndex():
             Data = self.Wdg.edtPostData.text()
             if len(Data) == 0:
                 self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
@@ -136,6 +159,8 @@ class SqlMap(object):
                 return
             else:
                 argTBContent.append('--data=' + Data)
+        #check if is using proxy
+        argTBContent = self.Proxy(argTBContent)
         self.Run(argTBContent)
         self.Proc.finished.connect(self.AnalyzeTableContent)
 
