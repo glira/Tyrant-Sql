@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from PySide.QtGui import QApplication, QMainWindow
+from PySide.QtGui import QApplication, QMainWindow, QIcon
 from gui.Ui_MainWindow import Ui_MainWindow
 
 
@@ -15,5 +15,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     Tyrant = MainWindow()
     Tyrant.setWindowTitle('Tyrant SQL')
+    Tyrant.setWindowIcon(QIcon('Tyrant.png'))
     Tyrant.show()
     app.exec_()
