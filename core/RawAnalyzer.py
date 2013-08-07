@@ -29,9 +29,12 @@ class RawAnalyzer(object):
         Edt.moveCursor(Cursor.Right)
         Edt.moveCursor(Cursor.EndOfLine, Cursor.KeepAnchor)
         Text = Edt.textCursor().selectedText()
-        Text = Text.split('Tyrant_SQL')
+        Text = Text.split('SQL_Map')
         Text = Text[-1]
-        Text = Text[1:-1]
+        Text = Text[:-1]
+        SQL = 'SQL_Map'
+        Text = SQL + Text
+        print Text
         self.DrawTable(Text)
 
     def DrawTable(self, File):

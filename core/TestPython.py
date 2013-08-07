@@ -64,7 +64,6 @@ class TestPython(object):
             return True
 
     def getOutput(self):
-        print('efsdfsfg')
         Out = str(self.Test.readAllStandardError())
         print(Out)
         if Out > 'Python 2.8':
