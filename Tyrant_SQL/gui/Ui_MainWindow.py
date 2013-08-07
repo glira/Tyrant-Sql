@@ -119,6 +119,7 @@ class Ui_MainWindow(object):
         if ID is 0:
             self.edtPostData.setVisible(False)
             self.lblPostData.setVisible(False)
+            self.edtPostData.setText('')
         else:
             self.edtPostData.setVisible(True)
             self.lblPostData.setVisible(True)

@@ -45,6 +45,14 @@ class SqlMap(object):
         argIdentify = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '--dbs',
             '--answers=skip test=N, include all tests=N' +
             ', keep testing the=Y', '--batch']
+        if self.Wdg.cbxMethod.currentIndex:
+            Data = self.Wdg.edtPostData.text()
+            if len(Data) == 0:
+                self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
+                    ' empty')
+                return
+            else:
+                argIdentify.append('--data=' + Data)
         self.Run(argIdentify)
         self.Proc.finished.connect(self.getDBInfo)
 
@@ -87,6 +95,14 @@ class SqlMap(object):
         self.DB = DB
         argTables = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '-D', DB,
             '--tables', '--answers=do you want to use common table existence=N']
+        if self.Wdg.cbxMethod.currentIndex:
+            Data = self.Wdg.edtPostData.text()
+            if len(Data) == 0:
+                self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
+                    ' empty')
+                return
+            else:
+                argTables.append('--data=' + Data)
         self.Run(argTables)
         self.Proc.finished.connect(self.AnalyzeTables)
 
@@ -112,6 +128,14 @@ class SqlMap(object):
         argTBContent = ['SQL_Map/sqlmap.py', '-u', str(self.Target), '-D', DB,
             '-T', self.TBName, '--dump', '--answers=hashes to a temporary file=N' +
             ',dictionary-based attack=N']
+        if self.Wdg.cbxMethod.currentIndex:
+            Data = self.Wdg.edtPostData.text()
+            if len(Data) == 0:
+                self.Wdg.Info.appendPlainText('[WARNING]Post data look be' +
+                    ' empty')
+                return
+            else:
+                argTBContent.append('--data=' + Data)
         self.Run(argTBContent)
         self.Proc.finished.connect(self.AnalyzeTableContent)
 

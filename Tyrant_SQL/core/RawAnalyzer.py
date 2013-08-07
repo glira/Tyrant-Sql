@@ -204,7 +204,7 @@ class RawAnalyzer(object):
         Text = Text.split()
         Text = Text[0]
         Text = Text[1:]
-        if len(Text) < 2:
+        if len(Text) == 0:
             return False
         else:
             return(int(Text))
