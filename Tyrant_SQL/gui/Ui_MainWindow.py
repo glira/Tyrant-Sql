@@ -98,10 +98,13 @@ class Ui_MainWindow(object):
         self.RawData.hide()
         Test = TestPython()
         Working = Test.TestVersion()
+        Test2 = TestPython(1)
+        Working = Test2.TestVersion()
         if not Working:
             Msg = QtGui.QMessageBox()
             Msg.information(self, 'Python',
-                    'Tyrant failed to find Python >=2.5.* and <=2.7.*')
+                    'Tyrant failed to find Python >=2.5.* and <=2.7.* \n Goto'
+                    + ' preferences!!')
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)

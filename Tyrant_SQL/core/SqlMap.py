@@ -6,6 +6,8 @@ from threading import Thread
 
 from core.Resources import Resources
 from core.RawAnalyzer import RawAnalyzer
+from core.TestPython import TestPython
+
 
 
 class SqlMap(object):
@@ -31,6 +33,15 @@ class SqlMap(object):
                 'Tyrant SQL cannot find sqlmap.py file')
 
     def IdentifyDB(self):
+        Resource = Resources()
+        Test = TestPython(1)
+        Working = Test.TestVersion()
+        if not Working:
+            Msg = QtGui.QMessageBox()
+            Msg.information(self.Wdg, 'Python',
+                    'Tyrant failed to find Python >=2.5.* and <=2.7.* \n Goto'
+                    + ' preferences!!')
+        self.Python = Resource.getPref('Python')
         if self.isRunning:
             self.Wdg.Info.appendPlainText('[WARINING]There is a process' +
                 ' running. Please, wait.')

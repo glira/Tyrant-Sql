@@ -14,3 +14,5 @@ class Raw_Data(QtGui.QPlainTextEdit):
 
     def TextChanged(self):
         self.Wdg.RawView.setPlainText(self.toPlainText())
+        Cursor = QtGui.QTextCursor()
+        self.Wdg.RawView.moveCursor(Cursor.End)
