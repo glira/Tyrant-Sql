@@ -4,8 +4,9 @@ Tyrant-SQL
 Powerful GUI SQL injection Tool. SQLMap's GUI version.
 
 
-Requeriments
+Requeriments(Must be installed!!)
 ============
+
 
 ->Python 2.7
     Site: http://www.python.org/download/releases/2.7.5/
