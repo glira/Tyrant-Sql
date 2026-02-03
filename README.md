@@ -7,13 +7,19 @@ Powerful GUI SQL injection Tool. SQLMap's GUI version.
 
 **This is an updated version of the original Tyrant-SQL project.**
 
-This fork has been updated by **Gemayel** to work with Python 3.10+ and modern libraries. The original code was written for Python 2.7 and PySide 1.2.0.
+This repository (`glira/Tyrant-Sql`) is a fork that has been updated by **Gemayel** to work with Python 3.10+ and modern libraries. 
 
-### Original Project
+### Project History & Credits
 
-This project is based on the original work by **aron-bordin**. Special thanks to the original developer for creating this excellent SQLMap GUI tool.
-
+**Original Developer:** **aron-bordin** - Created the original Tyrant-SQL project for Python 2.7  
 **Original Repository:** [https://github.com/aron-bordin/Tyrant-SQL](https://github.com/aron-bordin/Tyrant-SQL)
+
+**Fork Maintainer:** **glira** - Maintains this fork repository  
+**Fork Repository:** [https://github.com/glira/Tyrant-Sql](https://github.com/glira/Tyrant-Sql)
+
+**Python 3.10+ Update:** **Gemayel** - Updated the codebase to work with Python 3.10+ and PySide6
+
+Special thanks to **aron-bordin** for creating the original excellent SQLMap GUI tool.
 
 ### What Was Updated
 
@@ -81,6 +87,12 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 ========
 
 - **Original Developer:** aron-bordin - [Original Repository](https://github.com/aron-bordin/Tyrant-SQL)
-- **Updated by:** Gemayel
-- **Fork Repository:** [https://github.com/glira/Tyrant-Sql](https://github.com/glira/Tyrant-Sql)
-- **Based on:** SQLMap (https://github.com/sqlmapproject/sqlmap) 
+- **Fork Maintainer:** glira - [Fork Repository](https://github.com/glira/Tyrant-Sql)
+- **Python 3.10+ Update:** Gemayel
+- **Based on:** SQLMap (https://github.com/sqlmapproject/sqlmap)
+
+### Attribution Chain
+
+1. **aron-bordin** created the original Tyrant-SQL project (Python 2.7)
+2. **glira** maintains this fork repository
+3. **Gemayel** updated the code to Python 3.10+ and PySide6 
