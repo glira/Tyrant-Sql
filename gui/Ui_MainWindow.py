@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
 
     def TyrantHelp(self):
         Web = webbrowser.get()
-        Web.open('https://github.com/aron-bordin/Tyrant-SQL/wiki')
+        Web.open('https://github.com/glira/Tyrant-Sql')
 
     def License(self):
         Web = webbrowser.get()
@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
 
     def About(self):
         Web = webbrowser.get()
-        Web.open('https://github.com/aron-bordin/Tyrant-SQL/')
+        Web.open('https://github.com/glira/Tyrant-Sql')
 
     def Analyze(self):
         self.SQLMap.IdentifyDB()

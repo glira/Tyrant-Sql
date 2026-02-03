@@ -11,9 +11,9 @@ This fork has been updated by **Gemayel** to work with Python 3.10+ and modern l
 
 ### Original Project
 
-This project is based on the original work by **glira**. Special thanks to the original developer for creating this excellent SQLMap GUI tool.
+This project is based on the original work by **aron-bordin**. Special thanks to the original developer for creating this excellent SQLMap GUI tool.
 
-**Original Repository:** [https://github.com/glira/Tyrant-Sql](https://github.com/glira/Tyrant-Sql)
+**Original Repository:** [https://github.com/aron-bordin/Tyrant-SQL](https://github.com/aron-bordin/Tyrant-SQL)
 
 ### What Was Updated
 
@@ -80,6 +80,7 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 ## Credits
 ========
 
-- **Original Developer:** glira - [Original Repository](https://github.com/glira/Tyrant-Sql)
+- **Original Developer:** aron-bordin - [Original Repository](https://github.com/aron-bordin/Tyrant-SQL)
 - **Updated by:** Gemayel
+- **Fork Repository:** [https://github.com/glira/Tyrant-Sql](https://github.com/glira/Tyrant-Sql)
 - **Based on:** SQLMap (https://github.com/sqlmapproject/sqlmap) 
