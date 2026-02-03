@@ -3,37 +3,83 @@ Tyrant-SQL
 
 Powerful GUI SQL injection Tool. SQLMap's GUI version.
 
+## ⚠️ Important Notice
 
-Requeriments(Must be installed!!)
+**This is an updated version of the original Tyrant-SQL project.**
+
+This fork has been updated by **Gemayel** to work with Python 3.10+ and modern libraries. The original code was written for Python 2.7 and PySide 1.2.0.
+
+### Original Project
+
+This project is based on the original work by **glira**. Special thanks to the original developer for creating this excellent SQLMap GUI tool.
+
+**Original Repository:** [https://github.com/glira/Tyrant-Sql](https://github.com/glira/Tyrant-Sql)
+
+### What Was Updated
+
+- ✅ Migrated from Python 2.7 to Python 3.10+
+- ✅ Updated from PySide 1.2.0 to PySide6
+- ✅ Fixed all Python 2 to Python 3 syntax issues
+- ✅ Updated Qt API calls to PySide6 compatible versions
+- ✅ Improved error handling and output parsing
+- ✅ Added SQLMap path configuration option
+- ✅ Enhanced database and table detection algorithms
+- ✅ Better support for modern SQLMap versions
+
+## Requirements (Must be installed!!)
 ============
 
+- **Python 3.10 or higher**
+    - Download: https://www.python.org/downloads/
+    
+- **PySide6**
+    - Install with: `pip install -r requirements.txt`
+    
+- **SQLMap** (optional - can use bundled version or configure custom path)
+    - Download: https://github.com/sqlmapproject/sqlmap
 
-->Python 2.7
-    Site: http://www.python.org/download/releases/2.7.5/
-    
-->PySide 1.2.0
-    Site: http://qt-project.org/wiki/Category:LanguageBindings::PySide::Downloads
-    
-    
-How to run
+## How to run
 ==========
 
-Unzip the folder and run the file Tyrant.py with your Python 2.7.
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Using
+2. Run the application:
+   ```bash
+   python3 Tyrant.py
+   ```
+
+3. Configure SQLMap path (if using external installation):
+   - Go to **Tyrant → Preferences → Python tab**
+   - Set the SQLMap path (e.g., `/home/user/.sec/sqlmap/sqlmap.py` or `/home/user/.sec/sqlmap` directory)
+
+## Using
 =====
 
-->Method GET:
-    Just put the vulnerable link in the edit line and press Analyze.
-    Wait the process finish and navigate by the databases and tables avaliables
-    
-->Method POST:
-    Put the vulnerable link, without the POST variables and set this variables in POST Data input
-    (e.g. Link = 192.168.0.4/index.php
-    Posta data = id=1).
-    Press Analyze and wait the process finish.
-    
-Raw Data
+### Method GET:
+Just put the vulnerable link in the edit line and press **Analyze**.
+Wait for the process to finish and navigate through the databases and tables available.
+
+### Method POST:
+Put the vulnerable link without the POST variables and set these variables in **POST Data** input.
+(e.g., Link = `192.168.0.4/index.php`, Post data = `id=1`).
+Press **Analyze** and wait for the process to finish.
+
+## Raw Data
 ========
 
-With Raw Data table you can see more information about the sql injection. Raw Data is the Sqlmap output. 
+With Raw Data table you can see more information about the SQL injection. Raw Data is the SQLMap output.
+
+## License
+========
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+## Credits
+========
+
+- **Original Developer:** glira - [Original Repository](https://github.com/glira/Tyrant-Sql)
+- **Updated by:** Gemayel
+- **Based on:** SQLMap (https://github.com/sqlmapproject/sqlmap) 

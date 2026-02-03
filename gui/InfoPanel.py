@@ -1,9 +1,9 @@
 # *-* coding: utf-8 *-*
 
-from PySide import QtGui
+from PySide6 import QtWidgets
 
 
-class InfoPanel(QtGui.QPlainTextEdit):
+class InfoPanel(QtWidgets.QPlainTextEdit):
 
     def __init__(self):
         super(InfoPanel, self).__init__()

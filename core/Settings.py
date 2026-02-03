@@ -1,6 +1,6 @@
 # *-* coding: utf-8 *-*
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 
 class TyrantSettings(object):
@@ -14,6 +14,8 @@ class TyrantSettings(object):
         print('Populating preferences')
         self.Pref.edtPython.setText(str(self.Settings.value
                                                 ('Python/PythonPath', '')))
+        self.Pref.edtSqlMap.setText(str(self.Settings.value
+                                                ('SQLMap/SqlMapPath', 'SQL_Map/sqlmap.py')))
         self.Pref.edtIpProxy.setText(str(self.Settings.value
                                                 ('SQLMap/IPProxy', '')))
         self.Pref.edtPortProxy.setText(str(self.Settings.value
@@ -56,6 +58,7 @@ class TyrantSettings(object):
     def Save_Prefs(self):
         print('Saving preferences')
         self.Settings.setValue('Python/PythonPath', self.Pref.edtPython.text())
+        self.Settings.setValue('SQLMap/SqlMapPath', self.Pref.edtSqlMap.text())
         self.Settings.setValue('SQLMap/IPProxy', self.Pref.edtIpProxy.text())
         self.Settings.setValue('SQLMap/PortProxy',
                                                 self.Pref.edtPortProxy.text())

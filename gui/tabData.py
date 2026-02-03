@@ -1,16 +1,15 @@
 # *-* coding: utf-8 *-*
 
-from PySide import QtGui
-from PySide import QtCore
+from PySide6 import QtWidgets, QtCore
 
 
-class tabData(QtGui.QWidget):
+class tabData(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(tabData, self).__init__()
         self.Wdg = parent
-        self.Layout = QtGui.QHBoxLayout()
-        self.Split = QtGui.QSplitter(QtCore.Qt.Horizontal)
+        self.Layout = QtWidgets.QHBoxLayout()
+        self.Split = QtWidgets.QSplitter(QtCore.Qt.Orientation.Horizontal)
         self.DBExplorer = TreeView()
         self.Split.insertWidget(0, self.DBExplorer)
         self.Layout.addWidget(self.Split)
@@ -46,7 +45,7 @@ class tabData(QtGui.QWidget):
         self.DBExplorer.clear()
 
 
-class TreeView(QtGui.QTreeWidget):
+class TreeView(QtWidgets.QTreeWidget):
 
     def __init__(self, parent=None):
         super(TreeView, self).__init__(parent)
@@ -54,10 +53,10 @@ class TreeView(QtGui.QTreeWidget):
 
     def addDB(self, Text):
         ID = self.topLevelItemCount()
-        NewDB = QtGui.QTreeWidgetItem()
+        NewDB = QtWidgets.QTreeWidgetItem()
         NewDB.setText(0, Text)
         self.insertTopLevelItem(ID, NewDB)
 
     def addTable(self, DB, Text):
-        NewTB = QtGui.QTreeWidgetItem(DB)
+        NewTB = QtWidgets.QTreeWidgetItem(DB)
         NewTB.setText(0, Text)

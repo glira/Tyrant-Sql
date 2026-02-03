@@ -2,8 +2,7 @@
 
 import webbrowser
 
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 
 from core.TestPython import TestPython
@@ -18,58 +17,58 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(618, 654)
-        self.Frame = QtGui.QFrame()
-        self.Layout = QtGui.QHBoxLayout()
-        self.gbxInfo = QtGui.QGroupBox()
+        self.Frame = QtWidgets.QFrame()
+        self.Layout = QtWidgets.QHBoxLayout()
+        self.gbxInfo = QtWidgets.QGroupBox()
         self.gbxInfo.setTitle('Information')
         self.Info = InfoPanel()
-        self.InfoLayout = QtGui.QHBoxLayout()
+        self.InfoLayout = QtWidgets.QHBoxLayout()
         self.InfoLayout.addWidget(self.Info)
         self.gbxInfo.setLayout(self.InfoLayout)
-        self.Wdg = QtGui.QVBoxLayout()
+        self.Wdg = QtWidgets.QVBoxLayout()
         self.Frame.setLayout(self.Layout)
-        self.tabWidget = QtGui.QTabWidget()
+        self.tabWidget = QtWidgets.QTabWidget()
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 621, 611))
-        self.tabAnalyze = QtGui.QWidget()
-        self.lblTarget = QtGui.QLabel(self.tabAnalyze)
+        self.tabAnalyze = QtWidgets.QWidget()
+        self.lblTarget = QtWidgets.QLabel(self.tabAnalyze)
         self.lblTarget.setGeometry(QtCore.QRect(10, 20, 64, 21))
-        self.edtTarget = QtGui.QLineEdit(self.tabAnalyze)
+        self.edtTarget = QtWidgets.QLineEdit(self.tabAnalyze)
         self.edtTarget.setGeometry(QtCore.QRect(90, 10, 441, 33))
-        self.btnAnalyze = QtGui.QPushButton(self.tabAnalyze)
+        self.btnAnalyze = QtWidgets.QPushButton(self.tabAnalyze)
         self.btnAnalyze.setGeometry(QtCore.QRect(540, 10, 71, 31))
-        self.lblMethod = QtGui.QLabel(self.tabAnalyze)
+        self.lblMethod = QtWidgets.QLabel(self.tabAnalyze)
         self.lblMethod.setGeometry(QtCore.QRect(10, 60, 64, 21))
-        self.cbxMethod = QtGui.QComboBox(self.tabAnalyze)
+        self.cbxMethod = QtWidgets.QComboBox(self.tabAnalyze)
         self.cbxMethod.setGeometry(QtCore.QRect(90, 60, 76, 29))
         self.cbxMethod.addItem("")
         self.cbxMethod.addItem("")
-        self.lblPostData = QtGui.QLabel(self.tabAnalyze)
+        self.lblPostData = QtWidgets.QLabel(self.tabAnalyze)
         self.lblPostData.setGeometry(QtCore.QRect(10, 100, 71, 21))
         self.lblPostData.setVisible(False)
-        self.edtPostData = QtGui.QLineEdit(self.tabAnalyze)
+        self.edtPostData = QtWidgets.QLineEdit(self.tabAnalyze)
         self.edtPostData.setGeometry(QtCore.QRect(90, 100, 441, 33))
         self.edtPostData.setVisible(False)
         self.tabWidget.addTab(self.tabAnalyze, "")
-        self.tabRawData = QtGui.QWidget()
+        self.tabRawData = QtWidgets.QWidget()
         self.tabWidget.addTab(self.tabRawData, "")
         self.tabData = tabData(self)
         self.tabWidget.addTab(self.tabData, 'Data')
         self.RawData = Raw_Data(self)
-        self.RawView = QtGui.QPlainTextEdit()
+        self.RawView = QtWidgets.QPlainTextEdit()
         self.RawView.setReadOnly(True)
-        self.RDLayout = QtGui.QHBoxLayout(self.tabRawData)
+        self.RDLayout = QtWidgets.QHBoxLayout(self.tabRawData)
         self.RDLayout.addWidget(self.RawData)
         self.RDLayout.addWidget(self.RawView)
         MainWindow.setCentralWidget(self.Frame)
-        self.menubar = QtGui.QMenuBar(MainWindow)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 618, 27))
         self.menubar.setObjectName("menubar")
-        self.menuTyrant = QtGui.QMenu(self.menubar)
+        self.menuTyrant = QtWidgets.QMenu(self.menubar)
         self.menuTyrant.setObjectName("menuFile")
-        self.menuHelp = QtGui.QMenu(self.menubar)
+        self.menuHelp = QtWidgets.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionSql_Map_Hlelp = QtGui.QAction(MainWindow)
@@ -101,16 +100,15 @@ class Ui_MainWindow(object):
         Test2 = TestPython(1)
         Working = Test2.TestVersion()
         if not Working:
-            Msg = QtGui.QMessageBox()
+            Msg = QtWidgets.QMessageBox()
             Msg.information(self, 'Python',
-                    'Tyrant failed to find Python >=2.5.* and <=2.7.* \n Goto'
+                    'Tyrant failed to find Python 3.10 or higher \n Goto'
                     + ' preferences!!')
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         #to hide or show post data
-        QtCore.QObject.connect(self.cbxMethod, QtCore.SIGNAL
-                            ("currentIndexChanged(int)"), self.ShowHidePostData)
+        self.cbxMethod.currentIndexChanged.connect(self.ShowHidePostData)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.actionPreferences.triggered.connect(self.OpenPreferences)
         self.SQLMap = SqlMap(self)
@@ -119,7 +117,7 @@ class Ui_MainWindow(object):
         self.actionAbout.triggered.connect(self.About)
         self.actionLicense.triggered.connect(self.License)
         self.actionOnline_Help.triggered.connect(self.TyrantHelp)
-        self.actionExit.triggered.connect(self.close)
+        self.actionExit.triggered.connect(MainWindow.close)
 
     def SqlMapHelp(self):
         Web = webbrowser.get()
@@ -141,7 +139,7 @@ class Ui_MainWindow(object):
         self.SQLMap.IdentifyDB()
 
     def ShowHidePostData(self, ID):
-        if ID is 0:
+        if ID == 0:
             self.edtPostData.setVisible(False)
             self.lblPostData.setVisible(False)
             self.edtPostData.setText('')
@@ -151,43 +149,24 @@ class Ui_MainWindow(object):
 
     def OpenPreferences(self):
         self.Pre = Ui_Preferences()
-        self.Dialog = QtGui.QDialog()
+        self.Dialog = QtWidgets.QDialog()
         self.Pre.setupUi(self.Dialog, self)
-        self.Dialog.exec_()
+        self.Dialog.exec()
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate
-            ("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblTarget.setText(QtGui.QApplication.translate
-            ("MainWindow", "Target:", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnAnalyze.setText(QtGui.QApplication.translate
-            ("MainWindow", "Analyze", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblMethod.setText(QtGui.QApplication.translate
-            ("MainWindow", "Method:", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxMethod.setItemText(0, QtGui.QApplication.translate
-            ("MainWindow", "GET", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxMethod.setItemText(1, QtGui.QApplication.translate
-            ("MainWindow", "POST", None, QtGui.QApplication.UnicodeUTF8))
-        self.lblPostData.setText(QtGui.QApplication.translate
-            ("MainWindow", "Post Data:", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAnalyze),
-             QtGui.QApplication.translate
-             ("MainWindow", "Target", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRawData),
-            QtGui.QApplication.translate("MainWindow", "Raw Data", None,
-            QtGui.QApplication.UnicodeUTF8))
-        self.menuTyrant.setTitle(QtGui.QApplication.translate
-            ("MainWindow", "Tyrant", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuHelp.setTitle(QtGui.QApplication.translate
-            ("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSql_Map_Hlelp.setText(QtGui.QApplication.translate
-            ("MainWindow", "Sql Map  Help",
-            None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOnline_Help.setText(QtGui.QApplication.translate
-            ("MainWindow", "Online Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionLicense.setText(QtGui.QApplication.translate
-            ("MainWindow", "License", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionAbout.setText(QtGui.QApplication.translate
-            ("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExit.setText(QtGui.QApplication.translate("MainWindow",
-            "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle("MainWindow")
+        self.lblTarget.setText("Target:")
+        self.btnAnalyze.setText("Analyze")
+        self.lblMethod.setText("Method:")
+        self.cbxMethod.setItemText(0, "GET")
+        self.cbxMethod.setItemText(1, "POST")
+        self.lblPostData.setText("Post Data:")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAnalyze), "Target")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRawData), "Raw Data")
+        self.menuTyrant.setTitle("Tyrant")
+        self.menuHelp.setTitle("Help")
+        self.actionSql_Map_Hlelp.setText("Sql Map  Help")
+        self.actionOnline_Help.setText("Online Help")
+        self.actionLicense.setText("License")
+        self.actionAbout.setText("About")
+        self.actionExit.setText("Exit")

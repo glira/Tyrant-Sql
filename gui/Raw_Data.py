@@ -1,18 +1,19 @@
 # *-* coding: utf-8 *-*
 
-from PySide import QtGui
+from PySide6 import QtWidgets, QtGui
 
 
-class Raw_Data(QtGui.QPlainTextEdit):
+class Raw_Data(QtWidgets.QPlainTextEdit):
 
     def __init__(self, parent=None):
         super(Raw_Data, self).__init__()
         self.Wdg = parent
         self.setReadOnly(True)
-        self.setLineWrapMode(self.NoWrap)
+        self.setLineWrapMode(QtWidgets.QPlainTextEdit.LineWrapMode.NoWrap)
         self.textChanged.connect(self.TextChanged)
 
     def TextChanged(self):
         self.Wdg.RawView.setPlainText(self.toPlainText())
-        Cursor = QtGui.QTextCursor()
-        self.Wdg.RawView.moveCursor(Cursor.End)
+        cursor = self.Wdg.RawView.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.MoveOperation.End)
+        self.Wdg.RawView.setTextCursor(cursor)

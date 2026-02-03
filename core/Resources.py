@@ -1,7 +1,7 @@
 # *-* coding: utf-8 *-*
 
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 
 class Resources(object):
@@ -14,6 +14,7 @@ class Resources(object):
 
     def Populate_Dict(self):
         self.Dict['Python'] = str(self.Settings.value('Python/PythonPath'))
+        self.Dict['SqlMapPath'] = str(self.Settings.value('SQLMap/SqlMapPath', 'SQL_Map/sqlmap.py'))
         self.Dict['IP'] = str(self.Settings.value('SQLMap/IPProxy'))
         self.Dict['PortProxy'] = str(self.Settings.value('SQLMap/PortProxy'))
         self.Dict['UseHTTP'] = self.getBool(self.Settings.value
