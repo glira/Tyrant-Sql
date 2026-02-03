@@ -66,9 +66,11 @@ git commit -m "Update: Migrated to Python 3.10+ and PySide6
 - Enhanced database and table detection algorithms
 - Added requirements.txt
 - Updated README with credits and update information
+- Updated help links to point to fork repository
 
 Credits: Updated by Gemayel
-Original repository: https://github.com/glira/Tyrant-Sql"
+Original repository: https://github.com/aron-bordin/Tyrant-SQL
+Fork repository: https://github.com/glira/Tyrant-Sql"
 ```
 
 ### Passo 5: Fazer o push para o GitHub
